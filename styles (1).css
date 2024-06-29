@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f0f0; /* Updated background color */
+  background-color: #f0f0f0; 
   margin: 0;
   padding: 0;
   display: flex;
@@ -68,7 +68,7 @@ button {
   border-radius: 3px;
   font-size: 14px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9; /* Light grey background color */
+  background-color: #f9f9f9; 
 }
 
 input[type="number"]:focus,
@@ -98,7 +98,7 @@ button {
 }
 
 button:hover {
-  background-color: #e0a800; /* Darker yellow on hover */
+  background-color: #e0a800; 
 }
 
 .cards {
@@ -170,19 +170,19 @@ button:hover {
 }
 
 .btn_edit {
-  background-color: #ffc107; /* Yellow */
+  background-color: #ffc107;
   color: white;
 }
 
 .btn_edit:hover {
-  background-color: #e0a800; /* Darker yellow on hover */
+  background-color: #e0a800; 
 }
 
 .btn_delete {
-  background-color: #dc3545; /* Red */
+  background-color: #dc3545; 
   color: white;
 }
 
 .btn_delete:hover {
-  background-color: #c82333; /* Darker red on hover */
+  background-color: #c82333; 
 }
