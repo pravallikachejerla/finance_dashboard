@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget App</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .error_message {
+      color: red;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .budget_content, .ur_expenses {
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    label {
+      flex: 1;
+      margin-right: 10px;
+    }
+    input[type="number"], input[type="text"] {
+      flex: 2;
+      padding: 5px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    select {
+      flex: 1;
+      padding: 5px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .btn {
+      flex: 1;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .cards {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+    .cards li {
+      list-style: none;
+      background: #007bff;
+      color: white;
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+      flex: 1;
+      margin: 0 10px;
+    }
+    .cards li i {
+      font-size: 24px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .cards .info h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .cards .info p {
+      margin: 5px 0 0;
+      font-size: 14px;
+    }
+    .tbl_content {
+      margin-top: 20px;
+    }
+    .tbl_tr_header, .tbl_tr_content {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    .tbl_tr_header {
+      font-weight: bold;
+      background-color: #f9f9f9;
+      border-bottom: 2px solid #007bff;
+    }
+    .tbl_tr_content li {
+      list-style: none;
+    }
+    .tbl_tr_content button {
+      padding: 5px 10px;
+      margin-left: 5px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .btn_edit {
+      background-color: #ffc107;
+      color: white;
+    }
+    .btn_edit:hover {
+      background-color: #e0a800;
+    }
+    .btn_delete {
+      background-color: #dc3545;
+      color: white;
+    }
+    .btn_delete:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Your HTML content here -->
+  <div class="container">
+    <h2>Budget App</h2>
+    <div class="error_message"></div>
+    <div class="budget_content">
+      <div class="ur_budget">
+        <form id="budgetForm">
+          <label for="budget">Your Budget : </label>
+          <input type="number" placeholder="Enter Your Budget" class="budget_input" id="budgetInput" required />
+          <select id="currencySelectBudget">
+            <option value="$">USD</option>
+            <option value="€">EUR</option>
+            <option value="£">GBP</option>
+            <option value="₹">INR</option>
+            <!-- Add more currencies as needed -->
+          </select>
+          <button type="submit" class="btn" id="btn_budget">Calculate</button>
+        </form>
+      </div>
+      <div class="ur_expenses">
+        <form id="expensesForm">
+          <label for="expenses">Expenses Details : </label>
+          <input type="text" placeholder="Enter Your Expenses Desc!" class="expenses_input" id="expenseDescInput" required />
+          <input type="number" placeholder="Enter Your Expenses Amount" class="expenses_amount" id="expenseAmountInput" required />
+          <select id="currencySelectExpenses">
+            <option value="$">USD</option>
+            <option value="€">EUR</option>
+            <option value="£">GBP</option>
+            <option value="₹">INR</option>
+            <!-- Add more currencies as needed -->
+          </select>
+          <button type="submit" class="btn" id="btn_expenses">Add Expenses</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <ul class="cards">
+      <li>
+        <i class="bx bx-money"></i>
+        <span class="info">
+          <h3><span class="currency-symbol">$</span><span class="budget_card">0</span></h3>
+          <p>Budget</p>
+        </span>
+      </li>
+      <li>
+        <i class="bx bx-credit-card"></i>
+        <span class="info">
+          <h3><span class="currency-symbol">$</span><span class="expenses_card">0</span></h3>
+          <p>Expenses</p>
+        </span>
+      </li>
+      <li>
+        <i class="bx bx-dollar"></i>
+        <span class="info">
+          <h3><span class="currency-symbol">$</span><span class="balance_card">0</span></h3>
+          <p>Balance</p>
+        </span>
+      </li>
+    </ul>
+
+    <!-- Table Content -->
+    <div class="tbl_content">
+      <h3>Budget Details</h3>
+      <div class="tbl_data">
+        <ul class="tbl_tr_header">
+          <li>ID</li>
+          <li>Description</li>
+          <li>Amount</li>
+          <li>Actions</li>
+        </ul>
+        <div id="budgetTable">
+          <!-- Dynamic content will be inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const errorMesgEl = document.querySelector(".error_message");
+      const budgetInputEl = document.getElementById("budgetInput");
+      const expenseDescEl = document.getElementById("expenseDescInput");
+      const expenseAmountEl = document.getElementById("expenseAmountInput");
+      const budgetCardEl = document.querySelector(".budget_card");
+      const expensesCardEl = document.querySelector(".expenses_card");
+      const balanceCardEl = document.querySelector(".balance_card");
+      const tblRecordEl = document.getElementById("budgetTable");
+      const currencySelectBudget = document.getElementById("currencySelectBudget");
+      const currencySelectExpenses = document.getElementById("currencySelectExpenses");
+
+      let itemList = [];
+      let itemId = 0;
+
+      document.getElementById("budgetForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        budgetFun();
+      });
+
+      document.getElementById("expensesForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        expensesFun();
+      });
+
+      currencySelectBudget.addEventListener("change", function() {
+        updateCurrencySymbol();
+      });
+
+      currencySelectExpenses.addEventListener("change", function() {
+        updateCurrencySymbol();
+      });
+
+      function budgetFun() {
+        const budgetValue = parseFloat(budgetInputEl.value);
+        if (isNaN(budgetValue) || budgetValue <= 0) {
+          errorMessage("Please Enter Your Budget Amount (More Than 0)");
+        } else {
+          budgetCardEl.textContent = budgetValue.toLocaleString();
+          budgetInputEl.value = "";
+          showBalance();
+        }
+      }
+
+      function expensesFun() {
+        const expensesDescValue = expenseDescEl.value.trim();
+        const expenseAmountValue = parseFloat(expenseAmountEl.value);
+        if (
+          expensesDescValue === "" ||
+          isNaN(expenseAmountValue) ||
+          expenseAmountValue <= 0
+        ) {
+          errorMessage("Please Enter Expenses Description and Amount (More Than 0)");
+        } else {
+          const expenses = {
+            id: itemId,
+            title: expensesDescValue,
+            amount: expenseAmountValue,
+          };
+          itemList.push(expenses);
+          addExpenses(expenses);
+          showBalance();
+          itemId++;
+          expenseDescEl.value = "";
+          expenseAmountEl.value = "";
+        }
+      }
+
+      function addExpenses(expensesPara) {
+        const html = `
+          <ul class="tbl_tr_content" data-id="${expensesPara.id}">
+            <li>${expensesPara.id + 1}</li>
+            <li>${expensesPara.title}</li>
+            <li><span class="currency-symbol">${currencySelectExpenses.value}</span>${expensesPara.amount.toLocaleString()}</li>
+            <li>
+              <button type="button" class="btn_edit">Edit</button>
+              <button type="button" class="btn_delete">Delete</button>
+            </li>
+          </ul>
+        `;
+        tblRecordEl.insertAdjacentHTML("beforeend", html);
+        updateButtons();
+      }
+
+      function updateButtons() {
+        const btnEdit = document.querySelectorAll(".btn_edit");
+        const btnDel = document.querySelectorAll(".btn_delete");
+
+        btnEdit.forEach((btn) => {
+          btn.addEventListener("click", handleEdit);
+        });
+
+        btnDel.forEach((btn) => {
+          btn.addEventListener("click", handleDelete);
+        });
+      }
+
+      function handleEdit(event) {
+        const listItem = event.target.closest(".tbl_tr_content");
+        const itemId = parseInt(listItem.dataset.id);
+        const item = itemList.find((item) => item.id === itemId);
+
+        expenseDescEl.value = item.title;
+        expenseAmountEl.value = item.amount;
+
+        itemList = itemList.filter((item) => item.id !== itemId);
+        listItem.remove();
+        showBalance();
+      }
+
+      function handleDelete(event) {
+        const listItem = event.target.closest(".tbl_tr_content");
+        const itemId = parseInt(listItem.dataset.id);
+
+        itemList = itemList.filter((item) => item.id !== itemId);
+        listItem.remove();
+        showBalance();
+      }
+
+      function showBalance() {
+        const totalExpensesValue = totalExpenses();
+        const budgetValue = parseFloat(budgetCardEl.textContent.replace(",", ""));
+        const balanceValue = budgetValue - totalExpensesValue;
+
+        expensesCardEl.textContent = totalExpensesValue.toLocaleString();
+        balanceCardEl.textContent = balanceValue.toLocaleString();
+      }
+
+      function totalExpenses() {
+        return itemList.reduce((total, item) => total + item.amount, 0);
+      }
+
+      function errorMessage(message) {
+        errorMesgEl.innerHTML = `<p>${message}</p>`;
+        errorMesgEl.classList.add("error");
+        setTimeout(() => {
+          errorMesgEl.classList.remove("error");
+        }, 2500);
+      }
+
+      function updateCurrencySymbol() {
+        const currencySymbolBudget = currencySelectBudget.value;
+        const currencySymbolExpenses = currencySelectExpenses.value;
+
+        document.querySelectorAll('.cards .currency-symbol')[0].textContent = currencySymbolBudget;
+        document.querySelectorAll('.cards .currency-symbol')[1].textContent = currencySymbolBudget;
+        document.querySelectorAll('.cards .currency-symbol')[2].textContent = currencySymbolBudget;
+
+        document.querySelectorAll('.tbl_tr_content .currency-symbol').forEach(symbol => {
+          symbol.textContent = currencySymbolExpenses;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
